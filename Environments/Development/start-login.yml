@@ -1,0 +1,36 @@
+version: '3.5'
+
+services:
+  loginserver:
+    image: dulce/login-server:dev
+    restart: always
+    env_file:
+      - ./Variables/mongo.env
+      - ./Variables/rabbitmq.env
+    ports:
+      - 8080:8080
+    volumes:
+      - ../../Server:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - dulce-db
+      - dulce-rabbitmq
+
+  loginclient:
+    image: dulce/login-client:dev
+    restart: always
+    env_file:
+      - ./Variables/rabbitmq.env
+    ports:
+      - 8083:8080
+    volumes:
+      - ../../Client:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - dulce-rabbitmq
+
+networks:
+  dulce-db:
+    name: dulce-db
+  dulce-rabbitmq:
+    name: dulce-rabbitmq

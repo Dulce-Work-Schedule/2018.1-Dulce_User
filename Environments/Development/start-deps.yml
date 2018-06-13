@@ -1,0 +1,32 @@
+version: '3.5'
+
+services:
+  loginmongo:
+    image: mongo
+    env_file:
+      - ./Variables/mongo.env
+    networks:
+      - dulce-db
+    ports:
+      - 27017
+    volumes:
+      - db_data:/data/db
+
+  loginrabbitmq:
+    image: rabbitmq:3.6.14-management
+    env_file:
+      - ./Variables/rabbitmq.env
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - dulce-rabbitmq
+
+networks:
+  dulce-db:
+    name: dulce-db
+  dulce-rabbitmq:
+    name: dulce-rabbitmq
+
+volumes:
+  db_data: {}

@@ -1,0 +1,14 @@
+version: '3.5'
+
+services:
+  loginserver:
+    image: dulce/login-server:prod
+    build:
+      context: ../../
+      dockerfile: Environments/Production/Server/Dockerfile
+
+  loginclient:
+    image: dulce/login-client:prod
+    build:
+      context: ../../
+      dockerfile: Environments/Production/Client/Dockerfile
