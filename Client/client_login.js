@@ -20,10 +20,10 @@ var seneca = require('seneca')()
       .use('seneca-amqp-transport')
       .use('api')
       .client( {
-          type:'amqp',
-          pin:'role:login',
-          port: 5672,
-          username: 'guest',
-          password: 'guest',
-          url: 'amqp://rabbitmq',
+          type: 'amqp',
+          pin: 'role:user',
+          port: process.env.RABBITMQ_PORT,
+          username: process.env.RABBITMQ_DEFAULT_USER,
+          password: process.env.RABBITMQ_DEFAULT_PASS,
+          url: 'amqp://' + process.env.RABBITMQ_HOST
        } )

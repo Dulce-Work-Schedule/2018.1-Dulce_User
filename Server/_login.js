@@ -9,7 +9,7 @@ module.exports = function(options){
                  message: ' Falha de autenticação. Usuário não encontrado.'
                });
              } else {
-                if(msg.password == user.password ){
+                if(msg.password == user.password){
                   var payload = {
                     id: user.id
                   }
