@@ -5,13 +5,16 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon login.js",
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "test": "nyc --reporter=html --reporter=text mocha",
+    "coverage": "npm run cover && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "cover": "istanbul cover _mocha"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^2.0.1",
     "body-parser": "1.15.2",
+    "chai": "^4.1.2",
     "express": "^4.14.0",
     "jsonwebtoken": "^8.2.0",
     "mongoose": "^4.6.1",
@@ -25,8 +28,11 @@
     "seneca-web-adapter-express": "^1.1.1"
   },
   "devDependencies": {
+    "coveralls": "^3.0.1",
     "istanbul": "^0.4.5",
     "mocha": "^5.0.5",
+    "mocha-lcov-reporter": "^1.3.0",
+    "nyc": "^11.7.3",
     "should": "^13.2.1",
     "supertest": "^3.0.0"
   }
