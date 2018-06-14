@@ -1,0 +1,13 @@
+version: '3.5'
+
+services:
+  loginserver:
+    image: dulce/login-server:test
+    restart: always
+    env_file:
+      - ./Variables/coveralls.env
+    ports:
+      - 8080:8080
+    volumes:
+      - ../../Server:/usr/src/app
+      - /usr/src/app/node_modules
