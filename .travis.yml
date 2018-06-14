@@ -18,3 +18,11 @@ before_script:
 
 script:
   - sudo docker-compose -f start-login.yml run loginserver npm run coverage
+  - cd $TRAVIS_BUILD_DIR
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: bash ./utils/deploy.sh
+  on:
+    branch: master
