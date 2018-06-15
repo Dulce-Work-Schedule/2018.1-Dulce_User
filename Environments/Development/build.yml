@@ -1,13 +1,13 @@
 version: '3.5'
 
 services:
-  userserver:
+  loginserver:
     image: dulce/login-server:dev
     build:
       context: ../../
       dockerfile: Environments/Development/Server/Dockerfile
 
-  userclient:
+  loginclient:
     image: dulce/login-client:dev
     build:
       context: ../../
