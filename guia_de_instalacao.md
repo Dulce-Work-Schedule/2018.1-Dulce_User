@@ -6,7 +6,7 @@ Caso reste duvidas você também pode entrar em contato conosco criando uma issu
 ###### 2 - Em seguida siga os comandos para executar o ambiente de produção:
 
 ```bash
-$ cd 2018.1-Dulce_User/Environments/Development
+$ cd 2018.1-Dulce_Login/Environments/Development
 ```
 ```bash
 $ sudo docker-compose -f build.yml  build
@@ -29,7 +29,7 @@ $ sudo docker exec -it **NomeDoServiço** bash
 
 
 ```bash
-$ cd 2018.1-Dulce_User/Environments/Test
+$ cd 2018.1-Dulce_Login/Environments/Test
 ```
 ```bash
 $ sudo docker-compose -f build.yml  build
