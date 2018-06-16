@@ -10,12 +10,10 @@ module.exports = function(options){
 
     var user = this.make('users')
 
-    user.name = msg.name
-    user.registration = msg.registration
-    user.sector = msg.sector
-    user.hospital = msg.hospital
+    user.firstName = msg.firstName
+    user.lastName = msg.lastName
+    user.email = msg.email
     user.password = msg.password
-    user.manager = msg.manager
 
     user.save$(function(err,user){
       respond(null, user)
@@ -31,7 +29,7 @@ module.exports = function(options){
     });
   })
 
-  this.add('role:user, cmd:listUser', function listUser(msg, respond){
+  this.add('role:user, cmd:list', function list(msg, respond){
 
     var user = this.make('users');
     user.list$( { all$: true } , function(error, user){
@@ -45,19 +43,17 @@ module.exports = function(options){
     respond(null, {success:false, message: 'acesso negado'});
   })
 
-  this.add('role:user, cmd:editUser', function(msg, respond){
+  this.add('role:user, cmd:edit', function(msg, respond){
 
     var userId = msg.id;
     var user = this.make('users')
 
     user.load$(userId, function(error, user) {
 
-      user.name = msg.name
-      user.registration = msg.registration
-      user.sector = msg.sector
-      user.hospital = msg.hospital
+      user.firstName = msg.firstName
+      user.lastName = msg.lastName
+      user.email = msg.email
       user.password = msg.password
-      user.manager = msg.manager
 
       user.save$(function(err,user){
         respond( null, user)
@@ -66,9 +62,9 @@ module.exports = function(options){
   })
 
   this.add('role:user, cmd:authenticate', function(msg, respond) {
-          var registration = msg.registration;
+          var email = msg.email;
           var user = this.make('users')
-           user.load$({registration},function(error, user) {
+           user.load$({email},function(error, user) {
              if (!user) {
                respond( null,{
                  success: false,
@@ -86,11 +82,9 @@ module.exports = function(options){
                     token: token,
                     user: {
                         id: user.id,
-                        name: user.name,
-                        sector: user.sector,
-                        hospital: user.hospital,
-                        manager: user.manager,
-                        registration: user.registration }
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        email: user.email }
 
                   });
                 } else {

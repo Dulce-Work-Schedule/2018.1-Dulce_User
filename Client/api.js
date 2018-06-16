@@ -2,20 +2,16 @@ module.exports = function api(options) {
 
   this.add('role:api,path:create', function (msg, respond) {
 
-    var name = msg.args.body.name
-    var registration = msg.args.body.registration
-    var sector = msg.args.body.sector
-    var hospital = msg.args.body.hospital
+    var firstName = msg.args.body.firstName
+    var lastName = msg.args.body.lastName
+    var email = msg.args.body.email
     var password = msg.args.body.password
-    var manager = msg.args.body.manager
 
     this.act('role:user,cmd:create', {
-      name: name,
-      registration: registration,
-      sector: sector,
-      hospital: hospital,
-      password: password,
-      manager: manager
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password
     }, respond)
   })
 
@@ -29,8 +25,8 @@ module.exports = function api(options) {
 
   });
 
-  this.add('role:api,path:listUser', function(msg, respond){
-    this.act('role:user, cmd:listUser',{}, respond)
+  this.add('role:api,path:list', function(msg, respond){
+    this.act('role:user, cmd:list',{}, respond)
 
   });
 
@@ -39,23 +35,19 @@ module.exports = function api(options) {
 
   });
 
-this.add('role:api,path:editUser', function(msg, respond){
+this.add('role:api,path:edit', function(msg, respond){
 
-  var name = msg.args.body.name
-  var registration = msg.args.body.registration
-  var sector = msg.args.body.sector
-  var hospital = msg.args.body.hospital
+  var firstName = msg.args.body.firstName
+  var lastName = msg.args.body.lastName
+  var email = msg.args.body.email
   var password = msg.args.body.password
-  var manager = msg.args.body.manager
   var id = msg.args.query.id
 
-  this.act('role:user, cmd:editUser', {
-    name: name,
-    registration: registration,
-    sector: sector,
-    hospital: hospital,
+  this.act('role:user, cmd:edit', {
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
     password: password,
-    manager: manager,
     id: id
   }, respond)
 
@@ -63,11 +55,11 @@ this.add('role:api,path:editUser', function(msg, respond){
 
 this.add('role:api, path:login', function (msg, respond) {
 
-  var registration = msg.args.body.registration
+  var email = msg.args.body.email
   var password = msg.args.body.password
 
   this.act('role:user, cmd:authenticate', {
-    registration: registration,
+    email: email,
     password: password,
   }, respond)
 })
@@ -75,7 +67,7 @@ this.add('role:api, path:login', function (msg, respond) {
   this.add('init:api', function (msg, respond) {
 
     this.act('role:web',{ routes: {
-      prefix: '/api/userManager',
+      prefix: '/api/user',
       pin:    'role:api,path:*',
       map: {
         login: { POST:true },
@@ -83,19 +75,19 @@ this.add('role:api, path:login', function (msg, respond) {
         listById: { GET:true,
                     auth: {
                       strategy: 'jwt',
-                      fail: '/api/userManager/error',
+                      fail: '/api/user/error',
                     }
         },
-        listUser: { GET: true,
+        list: { GET: true,
                     auth: {
                       strategy: 'jwt',
-                      fail: '/api/userManager/error',
+                      fail: '/api/user/error',
                     }
         },
-        editUser: { PUT: true,
+        edit: { PUT: true,
                     auth: {
                       strategy: 'jwt',
-                      fail: '/api/userManager/error',
+                      fail: '/api/user/error',
                     }
         },
         error: {GET:true}
