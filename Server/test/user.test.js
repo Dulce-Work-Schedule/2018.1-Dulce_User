@@ -21,14 +21,15 @@ describe('Create user', function() {
     seneca.act({
       role: 'user',
       cmd: 'create',
-      name: 'Lucas',
-      registration: 12346,
-      sector: 'pediatria',
-      hospital: 'Base',
-      password: 123,
-      manager: true
+      firstName: 'Dulce',
+      lastName: 'User',
+      email: 'dulce.user@gmail.com',
+      password: '54321',
     }, function(err, result){
-      expect(result.name).to.equal('Lucas')
+      expect(result.firstName).to.equal('Dulce')
+      expect(result.lastName).to.equal('User')
+      expect(result.email).to.equal('dulce.user@gmail.com')
+      expect(result.password).to.equal('54321')
       fin()
     })
   })
