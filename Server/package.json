@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon login.js",
+    "start": "nodemon user.js",
     "test": "nyc --reporter=html --reporter=text mocha",
     "coverage": "npm run cover && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "cover": "istanbul cover _mocha"
@@ -12,7 +12,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^2.0.1",
+    "bcrypt": "2.0.1",
     "body-parser": "1.15.2",
     "chai": "^4.1.2",
     "express": "^4.14.0",
