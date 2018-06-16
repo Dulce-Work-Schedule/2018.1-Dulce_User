@@ -14,11 +14,7 @@ function validate_email(email, result) {
     }}
     return result;
 }
-<<<<<<< 132f96d9baa02c1a2208ebfc73134fffd3dde691
 
-=======
- 
->>>>>>> Fix #19 arrumando validação de email
 module.exports = function api(options) {
   this.add('role:api,path:create', function (msg, respond) {
     var firstName = {
