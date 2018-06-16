@@ -1,3 +1,9 @@
+var bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const SECRET_KEY = '123456789';
+const expiresIn = '1h';
+
 module.exports = function(options){
   this.add('role:login, cmd:authenticate', function(msg, respond) {
           var registration = msg.registration;
