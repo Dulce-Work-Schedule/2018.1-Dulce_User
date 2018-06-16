@@ -7,6 +7,14 @@ function validate_field(field, result){
   return result;
 }
 
+function validate_email(email, result) {
+    var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!regex.test(String(email.value).toLowerCase())){{
+      result[email.field_name + '_valid_error'] = 'O ' + email.verbose +' deve ser válido.';
+    }}
+    return result;
+}
+
 module.exports = function api(options) {
   this.add('role:api,path:create', function (msg, respond) {
     var firstName = {
@@ -35,6 +43,8 @@ module.exports = function api(options) {
     result = validate_field(email, result)
     result = validate_field(lastName, result)
     result = validate_field(password, result)
+
+    result = validate_email(email, result)
 
     // verify that an error has occurred
     if (Object.entries(result)[0]) {
@@ -93,14 +103,34 @@ this.add('role:api,path:edit', function(msg, respond){
 });
 
 this.add('role:api, path:login', function (msg, respond) {
+  var email = {
+    verbose: 'Email',
+    field_name: 'email',
+  }
+  var password = {
+    verbose: 'Senha',
+    field_name: 'password',
+  }
+  email.value = msg.args.body.email
+  password.value = msg.args.body.password
+  result = {}
 
-  var email = msg.args.body.email
-  var password = msg.args.body.password
+  result = validate_field(email, result)
+  result = validate_field(password, result)
 
-  this.act('role:user, cmd:authenticate', {
-    email: email,
-    password: password,
-  }, respond)
+  result = validate_email(email, result)
+
+  if (Object.entries(result)[0]){
+    console.log("Result:");
+    console.log(result);
+    result.success = false;
+    respond(null, result)
+  }else{
+    this.act('role:user, cmd:authenticate', {
+      email: email.value,
+      password: password.value,
+    }, respond)
+  }
 })
 
   this.add('init:api', function (msg, respond) {

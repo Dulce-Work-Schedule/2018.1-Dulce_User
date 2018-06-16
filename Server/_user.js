@@ -68,7 +68,7 @@ module.exports = function(options){
              if (!user) {
                respond( null,{
                  success: false,
-                 message: ' Falha de autenticação. Usuário não encontrado.'
+                 message: 'Email ou senha inválidos'
                });
              } else {
                 if(msg.password == user.password){
@@ -90,7 +90,7 @@ module.exports = function(options){
                 } else {
                   respond(null,{
                     success: false,
-                    message: 'Falha de autenticação. Senha incorreta! '
+                    message: 'Email ou senha inválidos'
                   })
                 }
               }
