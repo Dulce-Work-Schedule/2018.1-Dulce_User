@@ -14,24 +14,28 @@ function validate_email(email, result) {
     }}
     return result;
 }
+<<<<<<< 132f96d9baa02c1a2208ebfc73134fffd3dde691
 
+=======
+ 
+>>>>>>> Fix #19 arrumando validação de email
 module.exports = function api(options) {
   this.add('role:api,path:create', function (msg, respond) {
     var firstName = {
       verbose: 'Primeiro Nome',
-      field_name: 'firstName',
+      field_name: 'firstName'
     }
     var lastName = {
       verbose: 'Sobrenome',
-      field_name: 'lastName',
+      field_name: 'lastName'
     }
     var email = {
       verbose: 'Email',
-      field_name: 'email',
+      field_name: 'email'
     }
     var password = {
       verbose: 'Senha',
-      field_name: 'password',
+      field_name: 'password'
     }
     firstName.value = msg.args.body.firstName
     lastName.value = msg.args.body.lastName
@@ -61,7 +65,7 @@ module.exports = function api(options) {
         password: password.value
       }, respond)
     }
-  })
+  });
 
   this.add('role:api,path:listById',function(msg, respond){
     var id = msg.args.query.id
