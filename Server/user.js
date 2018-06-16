@@ -6,10 +6,10 @@ require('seneca')()
   port: process.env.MONGO_PORT
 })
 .use('seneca-amqp-transport')
-.use('_login')
+.use('_user')
 .listen({
   type:'amqp',
-  pin:'role:login',
+  pin:'role:user',
   port: process.env.RABBITMQ_PORT,
   username: process.env.RABBITMQ_DEFAULT_USER,
   password: process.env.RABBITMQ_DEFAULT_PASS,
