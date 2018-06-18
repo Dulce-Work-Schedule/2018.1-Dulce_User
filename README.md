@@ -1,4 +1,4 @@
-### Para mais informações visite nossa página [dulce](https://fga-gpp-mds.github.io/2018.1-Dulce_App/index.html)
+[<img src="docs/DulceHorizontal.svg" width="1300" title="">](https://dulce-work-schedule.github.io/)
 # Login
 [![Build Status](https://travis-ci.org/Dulce-Work-Schedule/2018.1-Dulce_Login.svg?branch=master)](https://travis-ci.org/Dulce-Work-Schedule/2018.1-Dulce_Login)
 [![Maintainability](https://api.codeclimate.com/v1/badges/9b8d0ce78d370c5b60ff/maintainability)](https://codeclimate.com/github/Dulce-Work-Schedule/2018.1-Dulce_Login/maintainability)
