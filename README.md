@@ -1,5 +1,5 @@
 [<img src="docs/DulceHorizontal.svg" width="1300" title="">](https://dulce-work-schedule.github.io/)
-# Login
+# Dulce Login
 [![Build Status](https://travis-ci.org/Dulce-Work-Schedule/2018.1-Dulce_Login.svg?branch=master)](https://travis-ci.org/Dulce-Work-Schedule/2018.1-Dulce_Login)
 [![Maintainability](https://api.codeclimate.com/v1/badges/9b8d0ce78d370c5b60ff/maintainability)](https://codeclimate.com/github/Dulce-Work-Schedule/2018.1-Dulce_Login/maintainability)
 [![Coverage Status](https://coveralls.io/repos/github/Dulce-Work-Schedule/2018.1-Dulce_Login/badge.svg?branch=)](https://coveralls.io/github/Dulce-Work-Schedule/2018.1-Dulce_Login?branch=)
