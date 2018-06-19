@@ -13,7 +13,7 @@ function test_user_seneca (fin){
   .use(require('../_user'))
 }
 
-describe('Create user', function() {
+describe('User', function() {
 
   it('User entity creation', function(fin){
     var seneca = test_user_seneca(fin)
@@ -33,4 +33,33 @@ describe('Create user', function() {
       fin()
     })
   })
+
+  it('Should fail on authenticate', function(fin){
+    var seneca = test_user_seneca(fin)
+    
+    seneca.act({
+      role: 'user',
+      cmd: 'authenticate',
+      email: 'dulce.user@gmail.com',
+      password: '54321'
+    }, function(err, result){
+      expect(result.message).to.equal('Email ou senha inválidos')
+      expect(result.success).to.equal(false)
+      fin()      
+    })
+  })
+
+  it('Should give an error message', function(fin){
+    var seneca = test_user_seneca(fin)
+    
+    seneca.act({
+      role: 'user',
+      cmd: 'error'
+    }, function(err, result){
+      expect(result.message).to.equal('acesso negado')
+      expect(result.success).to.equal(false)
+      fin()      
+    })
+  })
+
 });
