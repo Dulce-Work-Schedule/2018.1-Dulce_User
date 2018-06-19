@@ -5,11 +5,8 @@ const SECRET_KEY = '123456789';
 const expiresIn = '1h';
 
 module.exports = function(options){
-
   this.add('role:user, cmd:create', function create( msg, respond ) {
-
     var user = this.make('users')
-
     user.firstName = msg.firstName
     user.lastName = msg.lastName
     user.email = msg.email
