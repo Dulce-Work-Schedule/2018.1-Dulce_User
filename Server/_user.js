@@ -28,7 +28,6 @@ module.exports = function(options){
       }
     })
     .catch(function(error){
-      // console.log('error:');
       console.log(error);
     })
 
@@ -37,6 +36,7 @@ module.exports = function(options){
       respond(null, result);
     } else{
       user.save$(function(err,user){
+        console.log(user);
         respond(null, user)
       })
     }
@@ -64,22 +64,29 @@ module.exports = function(options){
     respond(null, {success:false, message: 'acesso negado'});
   })
 
-  this.add('role:user, cmd:edit', function(msg, respond){
-
+  this.add('role:user, cmd:edit', async function(msg, respond){
     var userId = msg.id;
     var user = this.make('users')
+    var result = {}
+    console.log("antes");
 
-    user.load$(userId, function(error, user) {
+    var load$ = Promise.promisify(user.load$, { context: user });
 
+    await load$(userId)
+    .then(function(user){
       user.firstName = msg.firstName
       user.lastName = msg.lastName
       user.email = msg.email
       user.password = msg.password
-
       user.save$(function(err,user){
-        respond( null, user)
+        respond(null, user)
       });
-    });
+    })
+    .catch(function(error){
+      result.not_find_error = "Usuário não encontrado";
+      console.log("Usuário não encontrado");
+      respond(null, result)
+    })
   })
 
   this.add('role:user, cmd:authenticate', function(msg, respond) {
