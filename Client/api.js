@@ -15,6 +15,9 @@ function validate_email(email, result) {
     return result;
 }
 
+// The RegExp Object above validates MongoBD ObjectIds
+var checkObjectId = new RegExp('^[0-9a-fA-F]{24}$');
+
 module.exports = function api(options) {
   this.add('role:api,path:create', function (msg, respond) {
     var firstName = {
@@ -37,13 +40,12 @@ module.exports = function api(options) {
     lastName.value = msg.args.body.lastName
     email.value = msg.args.body.email
     password.value = msg.args.body.password
-    result = {}
 
+    result = {}
     result = validate_field(firstName, result)
     result = validate_field(email, result)
     result = validate_field(lastName, result)
     result = validate_field(password, result)
-
     result = validate_email(email, result)
 
     // verify that an error has occurred
@@ -101,11 +103,25 @@ this.add('role:api,path:edit', function(msg, respond){
     field_name: 'password'
   }
 
-  var firstName = msg.args.body.firstName
-  var lastName = msg.args.body.lastName
-  var email = msg.args.body.email
-  var password = msg.args.body.password
-  var id = msg.args.query.id
+  firstName.value = msg.args.body.firstName
+  lastName.value = msg.args.body.lastName
+  email.value = msg.args.body.email
+  password.value = msg.args.body.password
+  id.value = msg.args.query.id
+
+  result = {}
+  result = validate_field(firstName, result)
+  result = validate_field(email, result)
+  result = validate_field(lastName, result)
+  result = validate_field(password, result)
+  result = validate_email(email, result)
+
+  if (id == null || id == '') {
+    result.id_error = 'O usuário é obrigatório';
+    console.log(result.id_error);
+  } else if (checkObjectId.test(id)) {
+    result.id_error = 'Usuário é inválido'
+  }
 
   this.act('role:user, cmd:edit', {
     firstName: firstName,
