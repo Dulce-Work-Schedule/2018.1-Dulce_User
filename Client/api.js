@@ -5,7 +5,7 @@ function validate_field(field, result){
     result[field.field_name + '_error'] = 'O campo ' + field.verbose +' deve ser uma string.';
   }
   return result;
-}
+};
 
 function validate_email(email, result) {
     var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -13,7 +13,7 @@ function validate_email(email, result) {
       result[email.field_name + '_valid_error'] = 'O ' + email.verbose +' deve ser válido.';
     }}
     return result;
-}
+};
 
 // The RegExp Object above validates MongoBD ObjectIds
 var checkObjectId = new RegExp('^[0-9a-fA-F]{24}$');
@@ -53,8 +53,7 @@ module.exports = function api(options) {
       console.log("Result:");
       console.log(result);
       result.success = false;
-      // respond.status=401;
-      respond(null, result, 401)
+      respond(null, result)
     // else, everything sucess
     } else {
       this.act('role:user,cmd:create', {
@@ -107,7 +106,7 @@ this.add('role:api,path:edit', function(msg, respond){
   lastName.value = msg.args.body.lastName
   email.value = msg.args.body.email
   password.value = msg.args.body.password
-  id.value = msg.args.query.id
+  var id = msg.args.body.id
 
   result = {}
   result = validate_field(firstName, result)
@@ -117,20 +116,25 @@ this.add('role:api,path:edit', function(msg, respond){
   result = validate_email(email, result)
 
   if (id == null || id == '') {
-    result.id_error = 'O usuário é obrigatório';
+    result.id_error = 'O id do usuário é obrigatório';
     console.log(result.id_error);
-  } else if (checkObjectId.test(id)) {
-    result.id_error = 'Usuário é inválido'
   }
 
-  this.act('role:user, cmd:edit', {
-    firstName: firstName,
-    lastName: lastName,
-    email: email,
-    password: password,
-    id: id
-  }, respond)
-
+  if (Object.entries(result)[0]) {
+    console.log("Result:");
+    console.log(result);
+    result.success = false;
+    respond(null, result)
+  // else, everything sucess
+  } else {
+    this.act('role:user, cmd:edit', {
+      firstName: firstName.value,
+      lastName: lastName.value,
+      email: email.value,
+      password: password.value,
+      id: id
+    }, respond)
+  }
 });
 
 this.add('role:api, path:login', function (msg, respond) {
@@ -155,7 +159,6 @@ this.add('role:api, path:login', function (msg, respond) {
     console.log("Result:");
     console.log(result);
     result.success = false;
-    result.status = 403;
     respond(null, result)
   }else{
     this.act('role:user, cmd:authenticate', {
@@ -193,6 +196,7 @@ this.add('role:api, path:login', function (msg, respond) {
                       strategy: 'jwt',
                       fail: '/api/user/error',
                     }
+
         },
         error: {GET:true}
       }

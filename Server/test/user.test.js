@@ -34,9 +34,39 @@ describe('User', function() {
     })
   })
 
+  it('User entity editing', function(fin){
+    var seneca = test_user_seneca(fin)
+
+    seneca.act({
+      role: 'user',
+      cmd: 'create',
+      firstName: 'Dulce',
+      lastName: 'User',
+      email: 'dulce.user@gmail.com',
+      password: '54321',
+    }, function (err, result){
+      console.log(result);
+      seneca.act({
+        role: 'user',
+        cmd: 'edit',
+        firstName: 'Dulce2',
+        lastName: 'User2',
+        email: 'dulce2.user2@gmail.com',
+        password: '12345',
+        id: result.id,
+      }, function(err, result){
+        expect(result.firstName).to.equal('Dulce2')
+        expect(result.lastName).to.equal('User2')
+        expect(result.email).to.equal('dulce2.user2@gmail.com')
+        expect(result.password).to.equal('12345')
+        fin()
+      })
+    })
+  })
+
   it('Should fail on authenticate', function(fin){
     var seneca = test_user_seneca(fin)
-    
+
     seneca.act({
       role: 'user',
       cmd: 'authenticate',
@@ -45,20 +75,20 @@ describe('User', function() {
     }, function(err, result){
       expect(result.message).to.equal('Email ou senha inválidos')
       expect(result.success).to.equal(false)
-      fin()      
+      fin()
     })
   })
 
   it('Should give an error message', function(fin){
     var seneca = test_user_seneca(fin)
-    
+
     seneca.act({
       role: 'user',
       cmd: 'error'
     }, function(err, result){
       expect(result.message).to.equal('acesso negado')
       expect(result.success).to.equal(false)
-      fin()      
+      fin()
     })
   })
 
