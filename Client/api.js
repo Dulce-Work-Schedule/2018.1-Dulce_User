@@ -51,7 +51,8 @@ module.exports = function api(options) {
       console.log("Result:");
       console.log(result);
       result.success = false;
-      respond(null, result)
+      // respond.status=401;
+      respond(null, result, 401)
     // else, everything sucess
     } else {
       this.act('role:user,cmd:create', {
@@ -65,8 +66,6 @@ module.exports = function api(options) {
 
   this.add('role:api,path:listById',function(msg, respond){
     var id = msg.args.query.id
-
-
 
     this.act('role:user, cmd:listById', {
       id: id
@@ -85,6 +84,22 @@ module.exports = function api(options) {
   });
 
 this.add('role:api,path:edit', function(msg, respond){
+  var firstName = {
+    verbose: 'Primeiro Nome',
+    field_name: 'firstName'
+  }
+  var lastName = {
+    verbose: 'Sobrenome',
+    field_name: 'lastName'
+  }
+  var email = {
+    verbose: 'Email',
+    field_name: 'email'
+  }
+  var password = {
+    verbose: 'Senha',
+    field_name: 'password'
+  }
 
   var firstName = msg.args.body.firstName
   var lastName = msg.args.body.lastName
@@ -124,6 +139,7 @@ this.add('role:api, path:login', function (msg, respond) {
     console.log("Result:");
     console.log(result);
     result.success = false;
+    result.status = 403;
     respond(null, result)
   }else{
     this.act('role:user, cmd:authenticate', {
@@ -140,7 +156,10 @@ this.add('role:api, path:login', function (msg, respond) {
       pin:    'role:api,path:*',
       map: {
         login: { POST:true },
-        create: { POST:true },
+        create: {
+          POST:true,
+          autoreply: false
+        },
         listById: { GET:true,
                     auth: {
                       strategy: 'jwt',

@@ -37,6 +37,7 @@ module.exports = function(options){
       respond(null, result);
     } else{
       user.save$(function(err,user){
+        console.log(user);
         respond(null, user)
       })
     }
@@ -65,20 +66,18 @@ module.exports = function(options){
   })
 
   this.add('role:user, cmd:edit', function(msg, respond){
-
     var userId = msg.id;
     var user = this.make('users')
 
     user.load$(userId, function(error, user) {
-
       user.firstName = msg.firstName
       user.lastName = msg.lastName
       user.email = msg.email
       user.password = msg.password
+    });
 
-      user.save$(function(err,user){
-        respond( null, user)
-      });
+    user.save$(function(err,user){
+      respond( null, user)
     });
   })
 
