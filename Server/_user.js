@@ -7,7 +7,7 @@ const expiresIn = '1h';
 var Promise = require('bluebird');
 
 module.exports = function(options){
-  this.add('role:user, cmd:create', async function create( msg, respond ) {
+  this.add('role:user, cmd:create', async function create( msg, respond) {
     var user = this.make('users')
     user.firstName = msg.firstName
     user.lastName = msg.lastName
