@@ -19,7 +19,7 @@ function validate_email(email, result) {
 var checkObjectId = new RegExp('^[0-9a-fA-F]{24}$');
 
 module.exports = function api(options) {
-  this.add('role:api,path:create', function (msg, respond) {
+  this.add('role:api, path:create', function (msg, respond) {
     var firstName = {
       verbose: 'Primeiro Nome',
       field_name: 'firstName'
@@ -176,8 +176,7 @@ this.add('role:api, path:login', function (msg, respond) {
       map: {
         login: { POST:true },
         create: {
-          POST:true,
-          autoreply: false
+          POST:true
         },
         listById: { GET:true,
                     auth: {
