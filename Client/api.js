@@ -97,22 +97,16 @@ this.add('role:api,path:edit', function(msg, respond){
     verbose: 'Email',
     field_name: 'email'
   }
-  var password = {
-    verbose: 'Senha',
-    field_name: 'password'
-  }
 
   firstName.value = msg.args.body.firstName
   lastName.value = msg.args.body.lastName
   email.value = msg.args.body.email
-  password.value = msg.args.body.password
   var id = msg.args.body.id
 
   result = {}
   result = validate_field(firstName, result)
   result = validate_field(email, result)
   result = validate_field(lastName, result)
-  result = validate_field(password, result)
   result = validate_email(email, result)
 
   if (id == null || id == '') {
@@ -131,7 +125,6 @@ this.add('role:api,path:edit', function(msg, respond){
       firstName: firstName.value,
       lastName: lastName.value,
       email: email.value,
-      password: password.value,
       id: id
     }, respond)
   }

@@ -51,8 +51,7 @@ describe('User', function() {
         cmd: 'edit',
         firstName: 'Dulce2',
         lastName: 'User2',
-        email: 'dulce2.user2@gmail.com',
-        password: '12345',
+        email: 'dulce2.user2@gmail.com'
         id: result.id,
       }, function(err, result){
         expect(result.firstName).to.equal('Dulce2')
