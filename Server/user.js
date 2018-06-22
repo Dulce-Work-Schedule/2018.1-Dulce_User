@@ -6,7 +6,12 @@ require('seneca')()
   port: process.env.MONGO_PORT
 })
 .use('seneca-amqp-transport')
-.use('_user')
+.use('authenticate')
+.use('create')
+.use('listById')
+.use('list')
+.use('edit')
+.use('error')
 .listen({
   type:'amqp',
   pin:'role:user',
