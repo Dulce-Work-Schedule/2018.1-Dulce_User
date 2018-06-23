@@ -52,13 +52,13 @@ describe('User', function() {
         firstName: 'Dulce2',
         lastName: 'User2',
         email: 'dulce2.user2@gmail.com',
-        password: '12345',
-        id: result.id,
+        id: result.id
       }, function(err, result){
         expect(result.firstName).to.equal('Dulce2')
         expect(result.lastName).to.equal('User2')
         expect(result.email).to.equal('dulce2.user2@gmail.com')
-        expect(result.password).to.equal('12345')
+        //password does not change
+        expect(result.password).to.equal('54321')
         fin()
       })
     })

@@ -34,7 +34,7 @@ module.exports = function(options){
     if(Object.entries(result)[0]){
       console.log(result);
       respond(null, result);
-    } else{
+    } else {
       user.save$(function(err,user){
         console.log(user);
         respond(null, user)
@@ -77,7 +77,6 @@ module.exports = function(options){
       user.firstName = msg.firstName
       user.lastName = msg.lastName
       user.email = msg.email
-      user.password = msg.password
       user.save$(function(err,user){
         respond(null, user)
       });
